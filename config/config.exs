@@ -10,6 +10,8 @@ import Config
 config :api_github,
   ecto_repos: [ApiGithub.Repo]
 
+config :api_github, ApiGithub.Repositories.Get, github_adapter: ApiGithub.Github.Client
+
 # Configures the endpoint
 config :api_github, ApiGithubWeb.Endpoint,
   url: [host: "localhost"],
