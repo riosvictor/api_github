@@ -1,6 +1,9 @@
 {
   "skip_files": [
     "lib/api_github/application.ex",
+    "lib/api_github_web/auth/pipeline.ex",
+    "lib/api_github_web/auth/error_handler.ex",
+    "lib/api_github_web/plugs/uuid_checker.ex",
     "lib/api_github/mailer.ex",
     "lib/api_github/repo.ex",
     "lib/api_github/github/behavior.ex",

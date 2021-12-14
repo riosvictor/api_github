@@ -53,6 +53,9 @@ defmodule ApiGithub.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:tesla, "~> 1.4"},
       {:hackney, "~> 1.17"},
+      {:pbkdf2_elixir, "~> 1.4"},
+      {:guardian, "~> 2.0"},
+      {:ex_machina, "~> 2.7.0"},
       {:excoveralls, "~> 0.10", only: :test},
       {:bypass, "~> 2.1", only: :test},
       {:mox, "~> 1.0", only: :test}

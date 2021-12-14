@@ -1,7 +1,7 @@
 defmodule ApiGithub.Github.Client do
   use Tesla
 
-  alias ApiGithub.{Error, Repositorie}
+  alias ApiGithub.{Error, Repository}
   alias Tesla.Env
 
   plug Tesla.Middleware.Headers, [{"user-agent", "Tesla"}]
@@ -27,7 +27,7 @@ defmodule ApiGithub.Github.Client do
     list =
       body
       |> Enum.map(fn repo ->
-        %Repositorie{
+        %Repository{
           id: repo["id"],
           name: repo["name"],
           html_url: repo["html_url"],

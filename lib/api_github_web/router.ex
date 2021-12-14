@@ -1,12 +1,28 @@
 defmodule ApiGithubWeb.Router do
   use ApiGithubWeb, :router
 
+  alias ApiGithubWeb.Plugs.UUIDChecker
+
   pipeline :api do
     plug :accepts, ["json"]
+    plug UUIDChecker
   end
 
+  pipeline :auth do
+    plug ApiGithubWeb.Auth.Pipeline
+  end
+
+  # public scope
   scope "/api", ApiGithubWeb do
     pipe_through :api
+
+    post "/users", UsersController, :create
+    post "/users/login", UsersController, :login
+  end
+
+  # private scope
+  scope "/api", ApiGithubWeb do
+    pipe_through [:api, :auth]
 
     get "/:username/repos", RepositoriesController, :get
   end

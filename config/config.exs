@@ -12,6 +12,18 @@ config :api_github,
 
 config :api_github, ApiGithub.Repositories.Get, github_adapter: ApiGithub.Github.Client
 
+config :api_github, ApiGithub.Repo,
+  migration_primary_key: [type: :binary_id],
+  migration_foreign_key: [type: :binary_id]
+
+config :api_github, ApiGithubWeb.Auth.Guardian,
+  issuer: "api_github",
+  secret_key: "mo7fshYCu0pll9MiyeY/NlN1jIca+KJAsY75ICsdnPWfkQVAOSrVvxSd8IsFE4Qd"
+
+config :api_github, ApiGithubWeb.Auth.Pipeline,
+  module: ApiGithubWeb.Auth.Guardian,
+  error_handler: ApiGithubWeb.Auth.ErrorHandler
+
 # Configures the endpoint
 config :api_github, ApiGithubWeb.Endpoint,
   url: [host: "localhost"],

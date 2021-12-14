@@ -3,7 +3,7 @@ defmodule ApiGithub.ViaCep.ClientTest do
 
   alias Plug.Conn
   alias ApiGithub.Github.Client
-  alias ApiGithub.{Error, Repositorie}
+  alias ApiGithub.{Error, Repository}
 
   defp endpoint_url(port), do: "http://localhost:#{port}/"
 
@@ -38,7 +38,7 @@ defmodule ApiGithub.ViaCep.ClientTest do
       expected_response =
         {:ok,
          [
-           %Repositorie{
+           %Repository{
              description: "short description",
              html_url: "www.aquela.url.mesmo.com",
              id: 12_314_123_213,

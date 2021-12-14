@@ -2,18 +2,28 @@ defmodule ApiGithubWeb.RepositoriesControllerTest do
   use ApiGithubWeb.ConnCase, async: true
 
   import Mox
+  import ApiGithub.Factory
 
   alias ApiGithub.Github.ClientMock
-  alias ApiGithub.Repositorie
+  alias ApiGithub.Repository
+  alias ApiGithubWeb.Auth.Guardian
 
   describe "get/2" do
+    setup %{conn: conn} do
+      user = insert(:user)
+      {:ok, token, _claims} = Guardian.encode_and_sign(user)
+      conn = put_req_header(conn, "authorization", "Bearer #{token}")
+
+      {:ok, conn: conn, user: user}
+    end
+
     test "when there is a username valid, return a repo list", %{conn: conn} do
       username = "danilo-vieira"
 
       expect(ClientMock, :get_user_repos, fn _item ->
         {:ok,
          [
-           %Repositorie{
+           %Repository{
              description: "short description",
              html_url: "www.aquela.url.mesmo.com",
              id: 12_314_123_213,
