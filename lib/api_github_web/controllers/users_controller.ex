@@ -8,7 +8,7 @@ defmodule ApiGithubWeb.UsersController do
 
   def create(conn, params) do
     with {:ok, %User{} = user} <- ApiGithub.create_user(params),
-         {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
+         {:ok, token, _claims} <- Guardian.encode_and_sign(user, %{}, ttl: {1, :minute}) do
       conn
       |> put_status(:created)
       |> render("create.json", token: token, user: user)

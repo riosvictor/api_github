@@ -11,7 +11,7 @@ defmodule ApiGithubWeb.RepositoriesControllerTest do
   describe "get/2" do
     setup %{conn: conn} do
       user = insert(:user)
-      {:ok, token, _claims} = Guardian.encode_and_sign(user)
+      {:ok, token, _claims} = Guardian.encode_and_sign(user, %{}, ttl: {1, :minute})
       conn = put_req_header(conn, "authorization", "Bearer #{token}")
 
       {:ok, conn: conn, user: user}
@@ -38,7 +38,7 @@ defmodule ApiGithubWeb.RepositoriesControllerTest do
         |> get(Routes.repositories_path(conn, :get, username))
         |> json_response(:ok)
 
-      assert response == %{
+      assert %{
                "repositories" => [
                  %{
                    "description" => "short description",
@@ -47,8 +47,9 @@ defmodule ApiGithubWeb.RepositoriesControllerTest do
                    "name" => "John Lennon",
                    "stargazers_count" => 11
                  }
-               ]
-             }
+               ],
+               "new_token" => _token
+             } = response
     end
   end
 end

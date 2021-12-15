@@ -8,8 +8,10 @@ defmodule ApiGithubWeb.RepositoriesViewTest do
 
   test "renders repositories.json" do
     repositories = build_list(1, :repository)
+    token = "qwe123"
 
-    response = render(RepositoriesView, "repositories.json", repositories: repositories)
+    response =
+      render(RepositoriesView, "repositories.json", repositories: repositories, new_token: token)
 
     assert %{
              repositories: [
@@ -20,7 +22,8 @@ defmodule ApiGithubWeb.RepositoriesViewTest do
                  name: "Sandro Souza",
                  stargazers_count: 27
                }
-             ]
+             ],
+             new_token: _token
            } = response
   end
 end
